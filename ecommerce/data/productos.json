@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "title": "Camiseta Deportiva",
+    "description": "Camiseta de Argentina",
+    "code": "ARG001",
+    "price": 25.99,
+    "status": true,
+    "stock": 150,
+    "category": "Ropa Deportiva",
+    "thumbnails": [
+      "/data/img/1.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Pantalón Jeans",
+    "description": "Jeans de corte regular y alta durabilidad",
+    "code": "PJ002",
+    "price": 45.5,
+    "status": true,
+    "stock": 80,
+    "category": "Ropa Casual",
+    "thumbnails": [
+      "/data/img/2.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Zapatillas Running",
+    "description": "Zapatillas cómodas y ligeras para correr",
+    "code": "ZR003",
+    "price": 75,
+    "status": true,
+    "stock": 60,
+    "category": "Calzado",
+    "thumbnails": [
+      "/data/img/3.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Gorra Casual",
+    "description": "Gorra cómoda y ajustable para el día a día",
+    "code": "GC004",
+    "price": 15,
+    "status": true,
+    "stock": 200,
+    "category": "Accesorios",
+    "thumbnails": [
+      "/data/img/4.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Chaqueta de Cuero",
+    "description": "Chaqueta de cuero auténtico de alta calidad",
+    "code": "CC005",
+    "price": 120,
+    "status": true,
+    "stock": 40,
+    "category": "Ropa de Abrigo",
+    "thumbnails": [
+      "/data/img/5.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Bolso de Mano",
+    "description": "Bolso de mano elegante y espacioso",
+    "code": "BM006",
+    "price": 55,
+    "status": true,
+    "stock": 100,
+    "category": "Accesorios",
+    "thumbnails": [
+      "/data/img/6.jpg"
+    ]
+  },
+  {
+    "title": "Mochila de Aventura",
+    "description": "Mochila espaciosa y resistente para aventuras al aire libre",
+    "code": "MA007",
+    "price": 85.5,
+    "stock": 50,
+    "category": "Accesorios",
+    "status": true,
+    "thumbnails": [
+      "/data/img/5.jpg"
+    ],
+    "id": 7
+  }
+]
