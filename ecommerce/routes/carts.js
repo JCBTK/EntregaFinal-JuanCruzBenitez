@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CartManager = require('../managers/CartManager');
+const CartManager = require('../managers/cartManager');
 const cartManager = new CartManager('./data/carts.json');
 
 router.post('/', (req, res) => {

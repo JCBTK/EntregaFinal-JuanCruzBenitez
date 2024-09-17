@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const ProductManager = require('../managers/ProductManager');
-const productManager = new ProductManager('./data/products.json');
+const ProductManager = require('../managers/productManager.js');
+const productManager = new ProductManager('./data/productos.json');
 
 router.get('/', (req, res) => {
     const limit = req.query.limit;

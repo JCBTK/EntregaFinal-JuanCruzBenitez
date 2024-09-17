@@ -3,8 +3,8 @@ const { create } = require('express-handlebars');
 const { Server } = require('socket.io');
 const http = require('http');
 const path = require('path');
-const ProductManager = require('./managers/ProductManager');
-const CartManager = require('./managers/CartManager');
+const ProductManager = require('./managers/productManager');
+const CartManager = require('./managers/cartManager');
 const productManager = new ProductManager('./data/productos.json');
 const cartManager = new CartManager('./data/carrito.json');
 const app = express();
@@ -21,8 +21,8 @@ app.use(express.json());
 
 const productRouter = require('./routes/products');
 const cartRouter = require('./routes/carts');
-app.use('/api/products', productRouter);
-app.use('/api/carts', cartRouter);
+app.use('/products', productRouter);
+app.use('/carts', cartRouter);
 
 const server = http.createServer(app);
 const io = new Server(server);
