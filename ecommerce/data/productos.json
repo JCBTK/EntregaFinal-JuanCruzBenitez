@@ -39,19 +39,6 @@
     ]
   },
   {
-    "id": 4,
-    "title": "Gorra Casual",
-    "description": "Gorra cómoda y ajustable para el día a día",
-    "code": "GC004",
-    "price": 15,
-    "status": true,
-    "stock": 200,
-    "category": "Accesorios",
-    "thumbnails": [
-      "/data/img/4.jpg"
-    ]
-  },
-  {
     "id": 5,
     "title": "Chaqueta de Cuero",
     "description": "Chaqueta de cuero auténtico de alta calidad",
@@ -78,16 +65,8 @@
     ]
   },
   {
-    "title": "Mochila de Aventura",
-    "description": "Mochila espaciosa y resistente para aventuras al aire libre",
-    "code": "MA007",
-    "price": 85.5,
-    "stock": 50,
-    "category": "Accesorios",
-    "status": true,
-    "thumbnails": [
-      "/data/img/5.jpg"
-    ],
-    "id": 7
+    "title": "cartuchera",
+    "price": "1500",
+    "id": 6
   }
 ]

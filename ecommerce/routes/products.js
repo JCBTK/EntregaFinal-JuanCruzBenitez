@@ -1,61 +1,48 @@
 const express = require('express');
 const router = express.Router();
-const ProductManager = require('../productManager');
-const productManager = new ProductManager();
+const ProductManager = require('../managers/ProductManager');
+const productManager = new ProductManager('./data/products.json');
 
+router.get('/', (req, res) => {
+    const limit = req.query.limit;
+    const products = productManager.getProducts();
+    if (limit) {
+        return res.json(products.slice(0, limit));
+    }
+    res.json(products);
+});
 
-router.get('/', async (req, res) => {
-    const products = await productManager.getAllProducts();
-    res.json(products); 
+router.get('/:pid', (req, res) => {
+    const product = productManager.getProductById(parseInt(req.params.pid));
+    if (!product) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
+    }
+    res.json(product);
 });
-router.get('/:pid', async (req, res) => {
-    const product = await productManager.getProductById(parseInt(req.params.pid));
-    if (product) {
-        res.json(product);
-    } else {
-        res.status(404).send('Producto no encontrado');
-    }
+
+router.post('/', (req, res) => {
+    const newProduct = req.body;
+    productManager.addProduct(newProduct);
+    res.status(201).json(newProduct);
 });
-router.post('/', async (req, res) => {
-    const { title, description, code, price, stock, category, status = true } = req.body;
-    if (!title || !description || !code || !price || !stock || !category) {
-        return res.status(400).json({ 
-            error: 'Faltan campos obligatorios. Los campos requeridos son: title, description, code, price, stock, category.'
-        });
+
+router.put('/:pid', (req, res) => {
+    const productId = parseInt(req.params.pid);
+    const updatedProduct = productManager.updateProduct(productId, req.body);
+    if (!updatedProduct) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
     }
-    const newProduct = {
-        title,
-        description,
-        code,
-        price,
-        stock,
-        category,
-        status,
-        thumbnails: req.body.thumbnails || []
-    };
-    const addedProduct = await productManager.addProduct(newProduct);
-    if (addedProduct) {
-        res.status(201).json(addedProduct);
-    } else {
-        res.status(500).json({ error: 'Error al agregar el producto' });
-    }
+    res.json(updatedProduct);
 });
-router.put('/:pid', async (req, res) => {
-    const updatedProduct = req.body;
-    const product = await productManager.updateProduct(parseInt(req.params.pid), updatedProduct);
-    if (product) {
-        res.json(product);
-    } else {
-        res.status(404).send('Producto no encontrado o error al actualizar');
+
+router.delete('/:pid', (req, res) => {
+    const productId = parseInt(req.params.pid);
+    const product = productManager.getProductById(productId);
+    if (!product) {
+        return res.status(404).json({ error: 'Producto no encontrado' });
     }
-});
-router.delete('/:pid', async (req, res) => {
-    const success = await productManager.deleteProduct(parseInt(req.params.pid));
-    if (success) {
-        res.send('Producto eliminado');
-    } else {
-        res.status(404).send('Producto no encontrado o error al eliminar');
-    }
+    productManager.deleteProduct(productId);
+    res.status(204).send();
 });
 
 module.exports = router;

@@ -1,31 +1,30 @@
 const express = require('express');
 const router = express.Router();
-const CartManager = require('../cartManager');
-const ProductManager = require('../productManager');
-const cartManager = new CartManager();
-const productManager = new ProductManager();
+const CartManager = require('../managers/CartManager');
+const cartManager = new CartManager('./data/carts.json');
 
-router.get('/:cid', async (req, res) => {
+router.post('/', (req, res) => {
+    const newCart = cartManager.addCart();
+    res.status(201).json(newCart);
+});
+
+router.get('/:cid', (req, res) => {
     const cartId = parseInt(req.params.cid);
-    const cart = await cartManager.getCartById(cartId);
+    const cart = cartManager.getCartById(cartId);
     if (!cart) {
         return res.status(404).json({ error: 'Carrito no encontrado' });
     }
-    const cartProducts = await Promise.all(cart.products.map(async (item) => {
-        const product = await productManager.getProductById(item.product);
-        return {
-            product: {
-                id: product.id,
-                title: product.title,
-                price: product.price,
-            },
-            quantity: item.quantity
-        };
-    }));
-    res.json({
-        id: cart.id,
-        products: cartProducts
-    });
+    res.json(cart.products);
+});
+
+router.post('/:cid/product/:pid', (req, res) => {
+    const cartId = parseInt(req.params.cid);
+    const productId = parseInt(req.params.pid);
+    const cart = cartManager.addProductToCart(cartId, productId);
+    if (!cart) {
+        return res.status(404).json({ error: 'Carrito no encontrado o producto no encontrado' });
+    }
+    res.status(201).json(cart);
 });
 
 module.exports = router;
