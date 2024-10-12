@@ -1,0 +1,44 @@
+Guía para Usar la app
+
+Inicio del Servidor:
+Para arrancar la aplicación,ejecuta el comando:
+node app.js
+
+El servidor se abre en el puerto 8080. Abri tu chrome, o el que uses y busca (http://localhost:8080).
+
+Para ver productos:
+Busca (http://localhost:8080/home) para ver la lista de productos disponibles.
+Cada producto tiene un enlace para ver sus detalles y un botón para agregarlo directamente al carrito.
+
+
+Para agregar productos al Carrito:
+En la vista de productos (/home), hace clic en el botón "Agregar al carrito" que esta al lado del producto para añadirlo al carrito con ID 1 (el ID predeterminado).
+Si el producto se agrega correctamente, se te va a confirmar en pantalla.
+
+Consultar Productos en Tiempo Real:
+Anda a  (http://localhost:8080/realtimeproducts) para entrar a la vista de productos en tiempo real.
+Ahi se muestra una lista dinámica que se actualiza cada vez que se agrega o elimina un producto.
+En el formulario disponible, podes agregar un nuevo producto proporcionando el título y el precio, los cambios se mestran en el momento gracias/por el socket.io
+
+Manipulación de Carritos:
+
+Utiliza las rutas del API para interactuar con los carritos:
+GET /carts/:cid: Obtiene el carrito específico con ID cid y todos sus productos.
+POST /carts/:cid/product/:pid: Agrega un producto al carrito con ID cid.
+PUT /carts/:cid/products/:pid: Actualiza la cantidad de un producto en un carrito específico.
+DELETE /carts/:cid: Elimina todos los productos de un carrito.
+Filtrado, Paginación y Ordenamiento de Productos:
+
+Podes filtrar y organizar productos accediendo a la ruta /products con parámetros opcionales:
+limit: Número máximo de productos por página (predeterminado: 10).
+page: Número de página (predeterminado: 1).
+sort: Ordenar por precio (asc para ascendente, desc para descendente).
+query: Filtrar por categoría o disponibilidad (available).
+
+Ejemplo: http://localhost:8080/products?limit=5&page+1&sort=desc&query=Ropa%20Deportiva
+
+
+Espero les halla servido de algo la guia, muchas gracias a los tutores y al profe .
+
+
+Juan Cruz Benitez

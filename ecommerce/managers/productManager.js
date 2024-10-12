@@ -40,6 +40,40 @@ class ProductManager {
     saveProducts(products) {
         fs.writeFileSync(this.filePath, JSON.stringify(products, null, 2));
     }
+
+    updateCart(cartId, updatedProducts) {
+        const carts = this.getCarts();
+        const cart = this.getCartById(cartId);
+        if (!cart) return null;
+
+        cart.products = updatedProducts;
+        this.saveCarts(carts);
+        return cart;
+    }
+
+    updateProductQuantity(cartId, productId, quantity) {
+        const carts = this.getCarts();
+        const cart = this.getCartById(cartId);
+        if (!cart) return null;
+
+        const productInCart = cart.products.find(p => p.product === productId);
+        if (productInCart) {
+            productInCart.quantity = quantity;
+        } else {
+            cart.products.push({ product: productId, quantity });
+        }
+        this.saveCarts(carts);
+        return cart;
+    }
+
+    clearCart(cartId) {
+        const carts = this.getCarts();
+        const cart = this.getCartById(cartId);
+        if (!cart) return;
+
+        cart.products = [];
+        this.saveCarts(carts);
+    }
 }
 
 module.exports = ProductManager;

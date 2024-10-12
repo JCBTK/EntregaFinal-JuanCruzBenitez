@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const CartManager = require('../managers/cartManager');
-const cartManager = new CartManager('./data/carts.json');
+const cartManager = new CartManager('./data/carrito.json');
 
 router.post('/', (req, res) => {
     const newCart = cartManager.addCart();
@@ -14,7 +14,11 @@ router.get('/:cid', (req, res) => {
     if (!cart) {
         return res.status(404).json({ error: 'Carrito no encontrado' });
     }
-    res.json(cart.products);
+    const populatedCart = {
+        ...cart,
+        products: cart.products.map(prodId => productManager.getProductById(prodId))
+    };
+    res.json(populatedCart);
 });
 
 router.post('/:cid/product/:pid', (req, res) => {
@@ -25,6 +29,33 @@ router.post('/:cid/product/:pid', (req, res) => {
         return res.status(404).json({ error: 'Carrito no encontrado o producto no encontrado' });
     }
     res.status(201).json(cart);
+});
+
+router.put('/:cid', (req, res) => {
+    const cartId = parseInt(req.params.cid);
+    const updatedProducts = req.body.products;
+    const cart = cartManager.updateCart(cartId, updatedProducts);
+    if (!cart) {
+        return res.status(404).json({ error: 'Carrito no encontrado' });
+    }
+    res.json(cart);
+});
+
+router.put('/:cid/products/:pid', (req, res) => {
+    const cartId = parseInt(req.params.cid);
+    const productId = parseInt(req.params.pid);
+    const { quantity } = req.body;
+    const cart = cartManager.updateProductQuantity(cartId, productId, quantity);
+    if (!cart) {
+        return res.status(404).json({ error: 'Carrito no encontrado o producto no encontrado' });
+    }
+    res.json(cart);
+});
+
+router.delete('/:cid', (req, res) => {
+    const cartId = parseInt(req.params.cid);
+    cartManager.clearCart(cartId);
+    res.status(204).send();
 });
 
 module.exports = router;
